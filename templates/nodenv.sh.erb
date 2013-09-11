@@ -1,8 +1,8 @@
 # Configure and activate nodenv. You know, for nodes.
 
-export NODENV_ROOT=$BOXEN_HOME/nodenv
+export NODENV_ROOT=<%@nodenv_root%>
 
-export PATH=$BOXEN_HOME/nodenv/bin:$PATH
+export PATH=<%@nodenv_root%>/bin:$PATH
 
 eval "$(nodenv init -)"
 

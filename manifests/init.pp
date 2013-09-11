@@ -14,12 +14,9 @@ class nodejs(
   require nodejs::nvm
   include nodejs::rehash
 
-  if $::osfamily == 'Darwin' {
-    include boxen::config
-
-    file { "${boxen::config::envdir}/nodenv.sh":
-      source => 'puppet:///modules/nodejs/nodenv.sh'
-    }
+  file { 'environment_shim':
+    path => "$env_root/nodenv.sh",
+    content=>template('nodejs/nodenv.sh.erb')
   }
 
   repository { $nodenv_root:
