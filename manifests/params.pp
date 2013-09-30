@@ -7,13 +7,13 @@ class nodejs::params {
 
       $nodenv_user = $::boxen_user
       $nodenv_root = "${boxen::config::home}/nodenv"
-      # $env_root = "${boxen::config::envdir}"
+      $nodenv_env_root = "${boxen::config::envdir}"
     }
 
     default: {
       $nodenv_user = 'root'
       $nodenv_root = '/usr/local/share/nodenv'
-      $env_root = '/etc/profile.d'
+      $nodenv_env_root = '/etc/profile.d'
     }
   }
 

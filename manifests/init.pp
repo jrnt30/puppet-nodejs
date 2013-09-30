@@ -8,18 +8,18 @@ class nodejs(
   $nodenv_root    = $nodejs::params::nodenv_root,
   $nodenv_user    = $nodejs::params::nodenv_user,
   $nodenv_version = $nodejs::params::nodenv_version,
+  $nodenv_env_root = $nodejs::params::nodenv_env_root,
 
   $nvm_root       = $nodejs::params::nvm_root
 ) inherits nodejs::params {
   require nodejs::nvm
   include nodejs::rehash
 
-  file { 'environment_shim':
-    path => "$env_root/nodenv.sh",
+  file { "${nodejs::nodenv_env_root}/nodenv.sh":
     content=>template('nodejs/nodenv.sh.erb')
   }
-
-  repository { $nodenv_root:
+  
+  repository { "${nodejs::nodenv_root}":
     ensure => $nodenv_version,
     force  => true,
     source => 'wfarr/nodenv',

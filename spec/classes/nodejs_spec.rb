@@ -5,6 +5,7 @@ describe "nodejs" do
 
   let(:root) { "/test/boxen/nodenv" }
   let(:versions) { "#{root}/versions" }
+  
 
   it do
     should include_class("nodejs::rehash")
@@ -18,15 +19,19 @@ describe "nodejs" do
     })
 
     should contain_file(versions).with_ensure("directory")
-
-    should contain_file("/test/boxen/env.d/nodenv.sh").with_source("puppet:///modules/nodejs/nodenv.sh")
+  end
+  
+  context "Darwin" do
+    it do 
+      should contain_file("/test/boxen/env.d/nodenv.sh")
+    end
   end
 
   context "Linux" do
     let(:facts) { default_test_facts.merge(:osfamily => "Linux") }
 
-    it do
-      should_not contain_file("/test/boxen/env.d/nodenv.sh")
-    end
+    it {
+      should contain_file("/etc/profile.d/nodenv.sh")
+    }
   end
 end
